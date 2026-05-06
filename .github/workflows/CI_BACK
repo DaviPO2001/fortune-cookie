@@ -1,0 +1,47 @@
+name: CI_BACKEND
+
+on:
+  push:
+    branches: [ main, argocd ]
+env:
+  IMAGE_TAG: ${{ github.sha }}
+
+permissions:
+  contents: write
+jobs:
+
+ build-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Instalar dependências
+        run: |
+          cd backend
+          npm ci
+
+      - name: Configurar credenciais AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Login no Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build da imagem Docker
+        run: |
+          docker build -t fortune-cookie-backend ./backend
+
+      - name: Tag da imagem
+        run: |
+          docker tag fortune-cookie-backend:latest 009160038179.dkr.ecr.us-east-1.amazonaws.com/registry:${IMAGE_TAG}
+
+      - name: Push para o ECR
+        run: |
+          docker push 009160038179.dkr.ecr.us-east-1.amazonaws.com/registry:${IMAGE_TAG}
+
+      - name: alterando imagem nos manifestos kubernetes
+        sed -i 's|image:.*|image: 009160038179.dkr.ecr.us-east-1.amazonaws.com/registry:${IMAGE_TAG}|g' k8s-manifests/backend-deployment.yaml
