@@ -1,7 +1,11 @@
-FROM nginx:alpine                                               # Usa imagem leve do Nginx
+FROM nginx:alpine                                               
+# Usa imagem leve do Nginx
 
-COPY . /usr/share/nginx/html                                    # Copia os arquivos do frontend
+COPY . /usr/share/nginx/html                                    
+# Copia os arquivos do frontend
 
-EXPOSE 80                                                       # Porta padrão do Nginx
+EXPOSE 80                                                       
+# Porta padrão do Nginx
 
-CMD ["nginx", "-g", "daemon off;"]                              # Inicia o Nginx
+CMD ["nginx", "-g", "daemon off;"]                              
+# Inicia o Nginx
