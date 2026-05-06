@@ -40,4 +40,5 @@ jobs:
           docker push 009160038179.dkr.ecr.us-east-1.amazonaws.com/registry:${IMAGE_TAG}
       
       - name: alterando imagem nos manifestos kubernetes
-        sed -i 's|image:.*|image: 009160038179.dkr.ecr.us-east-1.amazonaws.com/registry:${IMAGE_TAG}|g' k8s-manifests/frontend-deployment.yaml
+        run: |
+          sed -i 's|image:.*|image: 009160038179.dkr.ecr.us-east-1.amazonaws.com/registry:${IMAGE_TAG}|g' k8s-manifests/frontend-deployment.yaml
