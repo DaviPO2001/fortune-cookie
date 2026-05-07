@@ -2,7 +2,10 @@ name: CI_FRONTEND
 
 on:
   push:
-    branches: [ main, argocd ]
+    branches:
+      - argocd
+    paths:
+      - 'frontend/**'
 
 env:
   IMAGE_TAG: frontend-${{ github.sha }}    
@@ -42,3 +45,14 @@ jobs:
       - name: alterando imagem nos manifestos kubernetes
         run: |
           sed -i 's|image:.*|image: 009160038179.dkr.ecr.us-east-1.amazonaws.com/registry:${IMAGE_TAG}|g' k8s-manifests/frontend-deployment.yaml
+      
+      - name: Commit e push da alteração
+        run: |
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "github-actions"
+
+          git add k8s-manifests/frontend-deployment.yaml
+
+          git commit -m "Atualizando imagem frontend ${IMAGE_TAG} [skip ci]" || echo "Sem alterações"
+
+          git push origin argocd
