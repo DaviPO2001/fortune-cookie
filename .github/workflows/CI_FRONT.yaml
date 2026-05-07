@@ -55,4 +55,6 @@ jobs:
 
           git commit -m "Atualizando imagem frontend ${IMAGE_TAG} [skip ci]" || echo "Sem alterações"
 
+          git pull --rebase origin argocd
+
           git push origin argocd
