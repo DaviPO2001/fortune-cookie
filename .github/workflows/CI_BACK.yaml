@@ -48,7 +48,7 @@ jobs:
 
       - name: alterando imagem nos manifestos kubernetes
         run: |
-          sed -i 's|image:.*|image: 009160038179.dkr.ecr.us-east-1.amazonaws.com/registry:${IMAGE_TAG}|g' k8s-manifests/backend-deployment.yaml
+          sed -i "s|image:.*|image: 009160038179.dkr.ecr.us-east-1.amazonaws.com/registry:${IMAGE_TAG}|g" k8s-manifests/backend-deployment.yaml
 
       - name: Commit e push da alteração
         run: |
