@@ -12,7 +12,7 @@ async function openCookie() {
   screenToggle()
 
   try {
-    const response = await fetch("http://localhost:3000/frase")
+    const response = await fetch("http://backend:3000/frase")
 
     const data = await response.json()
 
