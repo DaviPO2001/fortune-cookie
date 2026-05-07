@@ -30,6 +30,10 @@ jobs:
       - name: Login no Amazon ECR
         uses: aws-actions/amazon-ecr-login@v2
 
+      - name: Sincronizar branch
+        run: |
+          git pull --rebase origin argocd
+
       - name: Build da imagem Docker
         run: |
           docker build -t fortune-cookie-frontend ./frontend
@@ -54,7 +58,5 @@ jobs:
           git add k8s-manifests/frontend-deployment.yaml
 
           git commit -m "Atualizando imagem frontend ${IMAGE_TAG} [skip ci]" || echo "Sem alterações"
-
-          git pull --rebase origin argocd
 
           git push origin argocd
