@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main, argocd ]
 env:
-  IMAGE_TAG:backend-${{ github.sha }}
+  IMAGE_TAG: backend-${{ github.sha }}
 
 permissions:
   contents: write
