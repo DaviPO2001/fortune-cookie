@@ -6,7 +6,7 @@ const fortuneMessage = document.querySelector("#fortuneMessage")
 
 fortuneCookie.addEventListener("click", openCookie)
 btnReset.addEventListener("click", cookieReset)
-document.addEventListener("keypress", handleEnter)
+document.addEventListener("keypress", handleEnt
 
 async function openCookie() {
   screenToggle()
