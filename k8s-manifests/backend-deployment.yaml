@@ -22,7 +22,7 @@ spec:
       containers:
         - name: backend
 
-          image: 009160038179.dkr.ecr.us-east-1.amazonaws.com/registry:${IMAGE_TAG}
+          image: 009160038179.dkr.ecr.us-east-1.amazonaws.com/registry:backend-5ec523a476e2c8ff498918c1cfd4181ff0e40f4e
 
           ports:
             - containerPort: 3000
