@@ -58,3 +58,5 @@ app.get("/frase", (req, res) => {
 app.listen(3000, () => {
   console.log("API rodando na porta 3000")
 })
+
+// teste github actions
